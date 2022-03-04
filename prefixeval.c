@@ -1,81 +1,90 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<ctype.h>
-#include<math.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <math.h>
+#include <stdbool.h>
 #define size 20
-struct stack{
+struct stack
+{
     int val[size];
     int top;
-
 };
 typedef struct stack stack;
-bool isoperator(char c){
-    switch(c){
-        case '+':
-        case '-':
-        case '*':
-        case '/':
-        case '^':
-        case '$':
+bool isoperator(char c)
+{
+    switch (c)
+    {
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+    case '^':
+    case '$':
         return true;
-        default:
-            return false;
+    default:
+        return false;
     }
 }
-void push(stack * s,int d){
-  s->val[++s->top]=d;
+void push(stack *s, int d)
+{
+    s->val[++s->top] = d;
 }
-int pop(stack *s){
+int pop(stack *s)
+{
     return s->val[s->top--];
 }
-int calculation(int a,int b,char c){
-    switch(c){
-        case '+':
-            return a+b;
-        case '-':
-            return a-b;
-        case '*':
-            return a*b;
-        case '/':
-            return a/b;
-        case '^':
-        case '$':
-            return pow(a,b);
-
+int calculation(int a, int b, char c)
+{
+    switch (c)
+    {
+    case '+':
+        return a + b;
+    case '-':
+        return a - b;
+    case '*':
+        return a * b;
+    case '/':
+        return a / b;
+    case '^':
+    case '$':
+        return pow(a, b);
     }
 }
-int val(char c[]){
+int val(char c[])
+{
     stack s;
-    s.top=-1;
+    s.top = -1;
     int i;
     int firstoperend;
     int secondoperend;
     char operetor;
     int res;
-    for(i=strlen(c)-1;i>=0;i--){
-        char temp=c[i];
-        if(!isoperator(temp)){
-            int d=temp-'0';
-            push(&s,d);
+    for (i = strlen(c) - 1; i >= 0; i--)
+    {
+        char temp = c[i];
+        if (!isoperator(temp))
+        {
+            int d = temp - '0';
+            push(&s, d);
         }
-        else{
-            firstoperend=pop(&s);
-            secondoperend=pop(&s);
-            operetor=temp;
-            int res=calculation(firstoperend,secondoperend,operetor);
-            push(&s,res);
+        else
+        {
+            firstoperend = pop(&s);
+            secondoperend = pop(&s);
+            operetor = temp;
+            int res = calculation(firstoperend, secondoperend, operetor);
+            push(&s, res);
         }
     }
     return s.val[s.top];
 }
-int main(){
+int main()
+{
     char c[20];
     printf("Enter the prefix expression \n");
-    scanf("%s",c);
+    scanf("%s", c);
     int res;
-    res=val(c);
-    printf("Anser is %d",res);
+    res = val(c);
+    printf("Anser is %d", res);
 }
-
