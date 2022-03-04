@@ -53,6 +53,7 @@ char pop(stk *s)
 {
     return s->arr[s->top--];
 }
+//func
 void inpost(char in[], char pos[])
 {
     stk st;
