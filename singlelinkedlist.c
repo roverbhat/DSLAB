@@ -198,6 +198,18 @@ void deletekey(Node Head)
     printf("deleting %d ", temp->data);
     free(temp);
 }
+void reverse(Node H){
+    Node head=H->link;
+    Node temp=NULL;
+    Node temp2=NULL;
+    while(head!=NULL){
+        temp2=head->link;
+        head->link=temp;
+        temp=head;
+        head=temp2;
+    }
+    H->link=temp;
+}
 int main()
 {
     int loop = 1;
@@ -216,6 +228,8 @@ int main()
         printf("6.sort\n");
         printf("7.Insert by position \n");
         printf("8.delete by pos\n");
+        printf("9 delete by key \n");
+        printf("10 reverse a linked list \n");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -245,6 +259,9 @@ int main()
             break;
         case 9:
             deletekey(Head);
+            break;
+        case 10:
+            reverse(Head);
             break;
         }
     }
