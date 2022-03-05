@@ -113,28 +113,77 @@ void deletebypos(Node Head)
     Node start = Head->link->link;
     if (pos == 1)
     {
-            if(Head->data==1){
-                Head->data--;
-                Head->link=Head;
-                free(start);
-                return;
-            }
-        Head->link->link=start->link;
+        if (Head->data == 1)
+        {
+            Head->data--;
+            Head->link = Head;
+            free(start);
+            return;
+        }
+        Head->link->link = start->link;
         free(start);
         Head->data--;
     }
-    else{
-      int count=1;
-      while(count<pos-1){
-          start=start->link;
-          count++;
-      }
-      Node temp=start->link;
-        start->link=temp->link;
-        if(pos==Head->data){
-            Head->link=start;
+    else
+    {
+        int count = 1;
+        while (count < pos - 1)
+        {
+            start = start->link;
+            count++;
+        }
+        Node temp = start->link;
+        start->link = temp->link;
+        if (pos == Head->data)
+        {
+            Head->link = start;
         }
         free(temp);
+    }
+}
+void deletebykey(Node Head)
+{
+    if (Head->data == 0)
+    {
+        printf("Deletion cannot be done at this stag please try again later\n");
+        return;
+    }
+    else
+    {
+        int key;
+        printf("Enter the key elements\n");
+        scanf("%d", &key);
+        Node start = Head->link->link;
+        Node prev = NULL;
+        int count = 1;
+        while (start->data != key && count != Head->data)
+        {
+            prev = start;
+            start = start->link;
+            count++;
+        }
+        if (count > Head->data)
+        {
+            printf("KEy not found\n");
+            return;
+        }
+        if (count == 1)
+        {
+            Head->data--;
+            Head->link->link = start->link;
+            if (Head->data == 0)
+            {
+                Head->link = Head;
+            }
+            return;
+        }
+        prev->link = start->link;
+        if (count == Head->data)
+        {
+            Head->link = prev;
+        }
+        Head->data--;
+        free(start);
     }
 }
 int main()
@@ -152,6 +201,7 @@ int main()
         printf("3.Insert front\n");
         printf("4 Insert at pos\n");
         printf("5 Delete by pos\n");
+        printf("6.delete by key\n");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -169,6 +219,10 @@ int main()
             break;
         case 5:
             deletebypos(Head);
+            break;
+        case 6:
+            deletebykey(Head);
+            break;
         }
     }
 }
