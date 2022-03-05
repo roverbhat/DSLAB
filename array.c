@@ -1,5 +1,5 @@
-//dynamic allocation of fixed sized array and all value are passed by reference 
-//dont confuse with vector in STL..............
+// dynamic allocation of fixed sized array and all value are passed by reference
+// dont confuse with vector in STL..............
 #include <stdio.h>
 #include <stdlib.h>
 int n;
@@ -17,89 +17,110 @@ void display(int *arr)
     }
     printf("\n");
 }
-void insertatpos(int *arr){
+void insertatpos(int *arr)
+{
     int pos;
     printf("Enter the position\n");
-    scanf("%d",&pos);
-    pos=pos-1;
-    for(int i=n;i>=pos;i--){
-        *(arr+i+1)=*(arr+i);
+    scanf("%d", &pos);
+    pos = pos - 1;
+    for (int i = n; i >= pos; i--)
+    {
+        *(arr + i + 1) = *(arr + i);
     }
-    scanf("%d",(arr+pos));
+    scanf("%d", (arr + pos));
     n++;
 }
-void deletebypos(int *arr){
+void deletebypos(int *arr)
+{
     int pos;
     printf("Enter the position\n");
-    scanf("%d",&pos);
-    pos=pos-1;
-    for(int i=pos;i<n;i++){
-        *(arr+i)=*(arr+i+1);
+    scanf("%d", &pos);
+    pos = pos - 1;
+    for (int i = pos; i < n; i++)
+    {
+        *(arr + i) = *(arr + i + 1);
     }
     n--;
 }
-void sort(int * arr){
+void sort(int *arr)
+{
     int temp;
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n-i;j++){
-            if(*(arr+j)>*(arr+j+1)){
-                temp=*(arr+j);
-                *(arr+j)=*(arr+j+1);
-                *(arr+j+1)=temp;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - i; j++)
+        {
+            if (*(arr + j) > *(arr + j + 1))
+            {
+                temp = *(arr + j);
+                *(arr + j) = *(arr + j + 1);
+                *(arr + j + 1) = temp;
             }
         }
     }
 }
-void search(int * arr){
+void search(int *arr)
+{
     int key;
     printf("Enter the key element to be searched\n");
-    scanf("%d",&key);
-    for(int i=0;i<=n;i++){
-        if(*(arr+i)==key){
-            printf("Key %d is found at location %d\n",key,(i+1));
+    scanf("%d", &key);
+    for (int i = 0; i <= n; i++)
+    {
+        if (*(arr + i) == key)
+        {
+            printf("Key %d is found at location %d\n", key, (i + 1));
             return;
         }
     }
     printf("key is not found at this present check the array and try again\n");
 }
-void deletebykey(int * arr){
+void deletebykey(int *arr)
+{
     int key;
     printf("Enter the key element\n");
-    scanf("%d",&key);
-    int res=-1;
-    for(int i=0;i<=n;i++){
-        if(*(arr+i)==key){
-            res=i;
+    scanf("%d", &key);
+    int res = -1;
+    for (int i = 0; i <= n; i++)
+    {
+        if (*(arr + i) == key)
+        {
+            res = i;
             break;
         }
     }
-    if(res!=-1){
-        for(int i=res;i<n;i++){
-            *(arr+i)=*(arr+i+1);
+    if (res != -1)
+    {
+        for (int i = res; i < n; i++)
+        {
+            *(arr + i) = *(arr + i + 1);
         }
         n--;
     }
-    else{
+    else
+    {
         printf("Key is not present to delete please try again later \n");
     }
 }
-void insertbyordera(int *arr){
-    //for insert by order the aray must be sorted;
+void insertbyordera(int *arr)
+{
+    // for insert by order the aray must be sorted;
     sort(arr);
     printf("Enter the element\n");
     int data;
     int pos;
-    scanf("%d",&data);
-    for(int i=n;i>=0;i--){
-        if(data>=*(arr+i)){
-            pos=i+1;
+    scanf("%d", &data);
+    for (int i = n; i >= 0; i--)
+    {
+        if (data >= *(arr + i))
+        {
+            pos = i + 1;
             break;
         }
     }
-    for(int i=n;i>=pos;i--){
-        *(arr+i+1)=*(arr+i);
+    for (int i = n; i >= pos; i--)
+    {
+        *(arr + i + 1) = *(arr + i);
     }
-    *(arr+pos)=data;
+    *(arr + pos) = data;
     n++;
 }
 int main()
@@ -107,10 +128,10 @@ int main()
     int lp = 1;
     int choice;
     n = -1;
-    //dynamic alllocation using malloc function
-    int *arr=(int *)malloc(100*sizeof(int));
-    //satic allocation;
-   // int arr[100];
+    // dynamic alllocation using malloc function
+    int *arr = (int *)malloc(100 * sizeof(int));
+    // satic allocation;
+    // int arr[100];
     while (lp)
     {
         printf("Enter your choice \n");
@@ -152,7 +173,7 @@ int main()
             break;
         case 9:
             free(arr);
-            lp=0;
+            lp = 0;
             break;
         default:
             printf("Invalid Entry \n");
