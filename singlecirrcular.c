@@ -115,6 +115,7 @@ void deletebypos(Node Head)
     {
             if(Head->data==1){
                 Head->data--;
+                Head->link=Head;
                 free(start);
                 return;
             }
@@ -123,7 +124,17 @@ void deletebypos(Node Head)
         Head->data--;
     }
     else{
-        
+      int count=1;
+      while(count<pos-1){
+          start=start->link;
+          count++;
+      }
+      Node temp=start->link;
+        start->link=temp->link;
+        if(pos==Head->data){
+            Head->link=start;
+        }
+        free(temp);
     }
 }
 int main()
@@ -139,7 +150,8 @@ int main()
         printf("1.Insert rear\n");
         printf("2.display\n");
         printf("3.Insert front\n");
-        printf("Insert at pos\n");
+        printf("4 Insert at pos\n");
+        printf("5 Delete by pos\n");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -155,6 +167,8 @@ int main()
         case 4:
             insertpos(Head);
             break;
+        case 5:
+            deletebypos(Head);
         }
     }
 }
