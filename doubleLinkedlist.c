@@ -148,6 +148,31 @@ void reverse(Node Head){
         count++;
     }
 }
+void deletebykey(Node Head){
+    if(Head->data==0){
+        printf("list is empty\n");
+        return;
+    }   
+    int key;
+    printf("Enter the key elements\n");
+    scanf("%d",&key);
+    Node start=Head->rlink;
+    while(start!=NULL && start->data!=key)
+    {
+        start=start->rlink;
+    }
+    if(start==NULL){
+        printf("Key not found\n");
+        return;
+    }
+    Node temp=start->llink;
+    temp->rlink=start->rlink;
+    if(start->rlink!=NULL)
+        start->rlink->llink=start->llink;
+    free(start);
+    Head->data--;
+}
+
 void main(){
     Node Head=(Node)malloc(sizeof(struct node));
     Head->data=0;
@@ -164,6 +189,7 @@ void main(){
         printf("6 Insert by position\n");
         printf("7 delete at the position\n");
         printf("8 reverse a list\n");
+        printf("9.delete by key \n");
         scanf("%d",&choice);
         switch(choice){
             case 1:
@@ -189,6 +215,9 @@ void main(){
                 break;
             case 8:
                 reverse(Head);
+                break;
+            case 9:
+                deletebykey(Head);
                 break;
         }
     }
